@@ -34,7 +34,7 @@ setInterval(function() {
 
 body.addEventListener("keypress", function(event) {
   switch(event.which) {
-  case 127:
+  case 127: // delete button
     if(!cursor.classList.contains("empty")) {
       if(after.textContent) {
         cursor.textContent = after.textContent.slice(0, 1);
@@ -56,10 +56,10 @@ body.addEventListener("keydown", function(event) {
   cursor.classList.add("flash");
 
   switch(event.keyCode) {
-  case 8:
+  case 8:   // backspace
     before.textContent = before.textContent.slice(0, -1);
     break;
-  case 37:
+  case 37:  // left arrow
     if(before.textContent) {
       if(cursor.classList.contains("empty")) {
         cursor.classList.remove("empty");
@@ -70,7 +70,7 @@ body.addEventListener("keydown", function(event) {
       before.textContent = before.textContent.slice(0, -1);
     }
     break;
-  case 39:
+  case 39:  // right arrow
     if(!cursor.classList.contains("empty")) {
       before.textContent += cursor.textContent;
       if(after.textContent) {
