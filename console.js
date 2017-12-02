@@ -3,6 +3,8 @@ var before;
 var cursor;
 var after;
 
+var shell_history = [];
+
 addParagraph();
 
 function addParagraph() {
@@ -58,6 +60,24 @@ body.addEventListener("keydown", function(event) {
   switch(event.keyCode) {
   case 8:   // backspace
     before.textContent = before.textContent.slice(0, -1);
+    break;
+  case 13:  // carriage return
+    if(cursor.classList.contains("empty")) {
+      cursor.textContent = "";
+    }
+    var command = before.textContent + cursor.textContent + after.textContent;
+    var p = cursor.parentElement;
+    if(command && command != shell_history[shell_history.length-1]) {
+      shell_history[shell_history.length] = command;
+    }
+    console.log(shell_history);
+
+    before.remove();
+    cursor.remove();
+    after.remove();
+
+    p.textContent += command;
+    addParagraph();
     break;
   case 37:  // left arrow
     if(before.textContent) {
