@@ -1,0 +1,28 @@
+body {
+  background: black;
+  color: white;
+  font-family: "Ubuntu Mono";
+  font-size: 16px;
+}
+
+span {
+  color: white;
+}
+
+#cursor {
+  background: black;
+  color: white;
+}
+
+#cursor.empty {
+  color: black;
+}
+
+#cursor.flash {
+  background: white;
+  color: black;
+}
+
+#cursor.flash.empty {
+  color: white;
+}
