@@ -1,6 +1,6 @@
 var body = document.querySelector("body");
-var before;// = document.getElementById("before");
-var cursor;// = document.getElementById("cursor");
+var before;
+var cursor;
 var after;
 
 addParagraph();
@@ -33,7 +33,6 @@ setInterval(function() {
 }, 600);
 
 body.addEventListener("keypress", function(event) {
-  //c.textContent = "hello".slice(-1);// String.fromCharCode(event.which);
   before.textContent += String.fromCharCode(event.which);
 });
 
