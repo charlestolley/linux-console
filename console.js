@@ -33,7 +33,22 @@ setInterval(function() {
 }, 600);
 
 body.addEventListener("keypress", function(event) {
-  before.textContent += String.fromCharCode(event.which);
+  switch(event.which) {
+  case 127:
+    if(!cursor.classList.contains("empty")) {
+      if(after.textContent) {
+        cursor.textContent = after.textContent.slice(0, 1);
+        after.textContent = after.textContent.slice(1);
+      } else {
+        cursor.textContent = "C";
+        cursor.classList.add("empty");
+      }
+    }
+    break;
+  default:
+    before.textContent += String.fromCharCode(event.which);
+    break;
+  }
 });
 
 body.addEventListener("keydown", function(event) {
