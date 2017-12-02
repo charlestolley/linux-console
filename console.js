@@ -4,6 +4,7 @@ var cursor;
 var after;
 
 var shell_history = [];
+var history_index;
 
 addParagraph();
 
@@ -24,6 +25,8 @@ function addParagraph() {
 
   after = document.createElement("span");
   p.appendChild(after);
+
+  history_index = shell_history.length;
 }
 
 setInterval(function() {
@@ -91,6 +94,19 @@ body.addEventListener("keydown", function(event) {
       before.textContent = before.textContent.slice(0, -1);
     }
     break;
+  case 38:  // up arrow
+    console.log(history_index);
+    if(history_index < shell_history.length) {
+      shell_history[history_index] = getCompleteCommand();
+    }
+    if(history_index) {
+      --history_index;
+      before.textContent = shell_history[history_index];
+      cursor.classList.add("empty");
+      cursor.textContent = "C";
+      after.textContent = "";
+    }
+    break;
   case 39:  // right arrow
     if(!cursor.classList.contains("empty")) {
       before.textContent += cursor.textContent;
@@ -103,8 +119,27 @@ body.addEventListener("keydown", function(event) {
       }
     }
     break;
+  case 40:
+    if(history_index < shell_history.length) {
+      shell_history[history_index] = getCompleteCommand();
+      ++history_index;
+      if(history_index == shell_history.length) {
+        before.textContent = "";
+      } else {
+        before.textContent = shell_history[history_index];
+      }
+      cursor.classList.add("empty");
+      cursor.textContent = "C";
+      after.textContent = "";
+    }
+    break;
   default:
     console.log(event.keyCode);
     break;
   }
 });
+
+function getCompleteCommand() {
+  var cursor_text = cursor.classList.contains("empty") ? "" : cursor.textContent;
+  return before.textContent + cursor_text + after.textContent;
+}
